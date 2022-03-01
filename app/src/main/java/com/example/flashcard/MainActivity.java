@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("yengin", "onCLick method was clicked");
-                Toast.makeText(MainActivity.this, "Display answer!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Display answer!", Toast.LENGTH_SHORT).show();
                 flashcardQuestion.setVisibility(View.INVISIBLE);
                 flashcardAnswer.setVisibility(View.VISIBLE);
             }
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("yengin", "onCLick method was clicked");
-                Toast.makeText(MainActivity.this, "Display question!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Display question!", Toast.LENGTH_SHORT).show();
                 flashcardQuestion.setVisibility(View.VISIBLE);
                 flashcardAnswer.setVisibility(View.INVISIBLE);
             }
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 correctAnswer.setBackgroundColor(getResources().getColor(R.color.green_200, null));
                 correctAnswer.setTextColor(getResources().getColor(R.color.black));
-
             }
         });
 

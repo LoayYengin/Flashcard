@@ -16,7 +16,7 @@
         android:elevation="24dp"
         android:gravity="center"
         android:text="Who is the 44th President of the United States?"
-        android:textColor="@color/light_blue_200"
+        android:textColor="@color/black"
         android:textSize="40sp" />
 
     <TextView
@@ -24,10 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
-        android:background="@drawable/card_background"
+        android:background="@drawable/card_background_answer"
         android:gravity="center"
         android:text="Barrack Obama"
-        android:textColor="@color/purple_200"
+        android:textColor="@color/black"
         android:textSize="40sp"
         android:visibility="invisible" />
 
@@ -37,10 +37,10 @@
         android:layout_height="100dp"
         android:layout_below="@id/flashcard_question_textview"
         android:layout_margin="10dp"
-        android:background="@drawable/card_background"
+        android:background="@color/gray_800"
         android:elevation="6dp"
         android:gravity="center"
-        android:text="Answer 1?"
+        android:text="Bill Clinton"
         android:textColor="@color/gray_200"
         android:textSize="40sp" />
 
@@ -50,10 +50,10 @@
         android:layout_height="100dp"
         android:layout_below="@id/wrong_answer1_textview"
         android:layout_margin="10dp"
-        android:background="@drawable/card_background"
+        android:background="@color/gray_800"
         android:elevation="6dp"
         android:gravity="center"
-        android:text="Answer 2?"
+        android:text="George H. W. Bush"
         android:textColor="@color/gray_200"
         android:textSize="40sp" />
 
@@ -63,7 +63,7 @@
         android:layout_height="100dp"
         android:layout_below="@id/wrong_answer2_textview"
         android:layout_margin="10dp"
-        android:background="@drawable/card_background"
+        android:background="@color/gray_800"
         android:elevation="6dp"
         android:gravity="center"
         android:text="Barrack Obama?"

@@ -9,6 +9,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="light_blue_200">#81d4fa</color>
+    <color name="light_blue_dark">#4ba3c7</color>
+    <color name="amber_200">#ffe082</color>
+    <color name="amber_dark">#caae53</color>
+
     <color name="gray_200">#EEEEEE</color>
     <color name="gray_800">#424242</color>
     <color name="gray_900">#212121</color>
