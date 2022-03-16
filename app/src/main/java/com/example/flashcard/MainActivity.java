@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 100) { // requestCode needs to match the 100 used in startActivityForRestult
+        if (requestCode == 100) { // requestCode needs to match the 100 used in startActivityForResult
             // get data
             if (data != null) { // check if there's an Intent
                 String questionString = data.getExtras().getString(AddCardActivity.QUESTION_KEY); // key String needs to match key used in the intent from AddCard
