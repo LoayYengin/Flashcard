@@ -91,5 +91,13 @@
         android:layout_margin="16dp"
         app:srcCompat="@drawable/ic_add_button" />
 
+    <ImageView
+        android:id="@+id/edit_card_imageView"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_edit_button" />
+
 
 </RelativeLayout>

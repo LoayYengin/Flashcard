@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView toggleChoices = findViewById(R.id.toggle_choices_visibility_imageView);
 
         ImageView addButton = findViewById(R.id.add_card_imageView);
-
-
+        ImageView editButton = findViewById(R.id.edit_card_imageView);
 
         /*
          * Lambda function can be used instead of initializing a new View.OnClickListener() and then overriding the onCLick method
@@ -104,13 +104,28 @@ public class MainActivity extends AppCompatActivity {
             isShowingAnswers = !isShowingAnswers;
         });
 
-        // navigate to AddCardActivity
+        // navigate to AddCardActivity via addCard button
         addButton.setOnClickListener(view -> {
             Intent toAddCard = new Intent(MainActivity.this, AddCardActivity.class);
             if (toAddCard != null) {
 //                MainActivity.this.startActivity(toAddCard);
                 startActivityForResult(toAddCard, 100); // create an activity with with the "Intent" of expecting data in return from AddCardActivity
             }
+        });
+
+        // navigate to AddCardActivity via editCard button
+        editButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
+            if (intent != null) {
+                String currQuestion = flashcardQuestion.getText().toString(); // this gets the current question text from the editText view
+                String currAnswer = flashcardAnswer.getText().toString(); // this gets the current answer text from the editText view
+
+                intent.putExtra(AddCardActivity.QUESTION_KEY, currQuestion); // puts a string into Intent, with the key "QUESTION_KEY"
+                intent.putExtra(AddCardActivity.ANSWER_KEY, currAnswer);
+
+                startActivityForResult(intent, 100); // create an activity with with the "Intent" of expecting data in return from AddCardActivity
+            }
+
         });
     }
 
