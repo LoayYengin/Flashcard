@@ -1,5 +1,6 @@
 package com.example.flashcard;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,6 +22,12 @@ public class AddCardActivity extends AppCompatActivity {
         ImageView cancelButton = findViewById(R.id.cancel_imageView);
         ImageView saveButton = findViewById(R.id.save_button_imageView);
 
+        EditText questionField = findViewById(R.id.enter_question_editText);
+        EditText answerField = findViewById(R.id.enter_answer_editText);
+
+        String questionString = getIntent().getStringExtra(QUESTION_KEY); // if activity launched with Intent access the passed data
+        String answerString = getIntent().getStringExtra("CURR_ANSWER");
+
         cancelButton.setOnClickListener(view -> {
             finish();
         });
@@ -39,5 +46,13 @@ public class AddCardActivity extends AppCompatActivity {
             }
 
         });
+
+
+        if (questionString != null && answerString != null) {
+            questionField.setText(questionString);
+            answerField.setText(answerString);
+        }
+
     }
+
 }
