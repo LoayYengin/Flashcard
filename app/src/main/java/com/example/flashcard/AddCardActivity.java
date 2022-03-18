@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 public class AddCardActivity extends AppCompatActivity {
     public static final String QUESTION_KEY = "question_key"; // since both MainActivity and AddCardActivity need to access the key, can declare as static variables
-    public static String ANSWER_KEY = "answer_key";
+    public static final String ANSWER_KEY = "answer_key";
+    public static final String WRONG_ANSWER1_KEY = "wrong_answer1_key";
+    public static final String WRONG_ANSWER2_KEY = "wrong_answer2_key";
+//    public static final String CORRECT_ANSWER_KEY = "correct_answer_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +29,13 @@ public class AddCardActivity extends AppCompatActivity {
         EditText questionField = findViewById(R.id.enter_question_editText);
         EditText answerField = findViewById(R.id.enter_answer_editText);
 
-        String questionString = getIntent().getStringExtra(QUESTION_KEY); // if activity launched with Intent access the passed data
+        EditText wrongAnswerField1 = findViewById(R.id.enter_wrong_answer1_editText);
+        EditText wrongAnswerField2 = findViewById(R.id.enter_wrong_answer2_editText);
+
+        String questionString = getIntent().getStringExtra(QUESTION_KEY); // if activity launched with Intent, access the passed data
         String answerString = getIntent().getStringExtra(ANSWER_KEY);
+        String wrongAnswer1String = getIntent().getStringExtra(WRONG_ANSWER1_KEY);
+        String wrongAnswer2String = getIntent().getStringExtra(WRONG_ANSWER2_KEY);
 
         cancelButton.setOnClickListener(view -> {
             finish();
@@ -39,9 +47,13 @@ public class AddCardActivity extends AppCompatActivity {
                 Intent data = new Intent(); // this is where we will put our data
                 String inputQuestion = ((EditText) findViewById(R.id.enter_question_editText)).getText().toString(); // this gets the question text input from the editText view
                 String inputAnswer = ((EditText) findViewById(R.id.enter_answer_editText)).getText().toString(); // this gets the answer text input from the editText view
+                String wrongAnswer1 = ((EditText) findViewById(R.id.enter_wrong_answer1_editText)).getText().toString();
+                String wrongAnswer2 = ((EditText) findViewById(R.id.enter_wrong_answer2_editText)).getText().toString();
 
                 data.putExtra(QUESTION_KEY, inputQuestion); // puts a string into Intent, with the key "QUESTION_KEY"
                 data.putExtra(ANSWER_KEY, inputAnswer);
+                data.putExtra(WRONG_ANSWER1_KEY, wrongAnswer1);
+                data.putExtra(WRONG_ANSWER2_KEY, wrongAnswer2);
                 setResult(RESULT_OK, data); // set result code and bundle data for response
 
                 if (inputQuestion.equals("") || inputAnswer.equals("")) {
@@ -58,6 +70,8 @@ public class AddCardActivity extends AppCompatActivity {
         if (questionString != null && answerString != null) {
             questionField.setText(questionString);
             answerField.setText(answerString);
+            wrongAnswerField1.setText(wrongAnswer1String);
+            wrongAnswerField2.setText(wrongAnswer2String);
         }
 
     }

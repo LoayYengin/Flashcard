@@ -13,11 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class MainActivity extends AppCompatActivity {
     boolean isShowingAnswers = false;
 
     TextView flashcardQuestion;
     TextView flashcardAnswer;
+    TextView wrongAnswer1;
+    TextView wrongAnswer2;
+    TextView correctAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
         // get question and answer views from xml
         flashcardQuestion = findViewById(R.id.flashcard_question_textview);
         flashcardAnswer = findViewById(R.id.flashcard_answer_textview);
-        TextView wrongAnswer1 = findViewById(R.id.wrong_answer1_textview);
-        TextView wrongAnswer2 = findViewById(R.id.wrong_answer2_textview);
-        TextView correctAnswer = findViewById(R.id.correct_answer_textview);
+
+        wrongAnswer1 = findViewById(R.id.wrong_answer1_textview);
+        wrongAnswer2 = findViewById(R.id.wrong_answer2_textview);
+        correctAnswer = findViewById(R.id.correct_answer_textview);
         ImageView toggleChoices = findViewById(R.id.toggle_choices_visibility_imageView);
 
         ImageView addButton = findViewById(R.id.add_card_imageView);
@@ -120,8 +126,16 @@ public class MainActivity extends AppCompatActivity {
                 String currQuestion = flashcardQuestion.getText().toString(); // this gets the current question text from the editText view
                 String currAnswer = flashcardAnswer.getText().toString(); // this gets the current answer text from the editText view
 
+                // multiple choice answer texts
+                String wrongChoice1 = wrongAnswer1.getText().toString();
+                String wrongChoice2 = wrongAnswer2.getText().toString();
+                String correctChoice = correctAnswer.getText().toString();
+
+
                 intent.putExtra(AddCardActivity.QUESTION_KEY, currQuestion); // puts a string into Intent, with the key "QUESTION_KEY"
                 intent.putExtra(AddCardActivity.ANSWER_KEY, currAnswer);
+                intent.putExtra(AddCardActivity.WRONG_ANSWER1_KEY, wrongChoice1);
+                intent.putExtra(AddCardActivity.WRONG_ANSWER2_KEY, wrongChoice2);
 
                 startActivityForResult(intent, 100); // create an activity with with the "Intent" of expecting data in return from AddCardActivity
             }
@@ -142,11 +156,21 @@ public class MainActivity extends AppCompatActivity {
             if (data != null) { // check if there's an Intent
                 String questionString = data.getExtras().getString(AddCardActivity.QUESTION_KEY); // key String needs to match key used in the intent from AddCard
                 String answerString = data.getExtras().getString(AddCardActivity.ANSWER_KEY);
+                String wrongAnswer1String = data.getExtras().getString(AddCardActivity.WRONG_ANSWER1_KEY);
+                String wrongAnswer2String = data.getExtras().getString(AddCardActivity.WRONG_ANSWER2_KEY);
 
                 // need to set as global textview var
                 flashcardQuestion.setText(questionString);
                 flashcardAnswer.setText(answerString);
+                wrongAnswer1.setText(wrongAnswer1String);
+                wrongAnswer2.setText(wrongAnswer2String);
+                correctAnswer.setText(answerString);
             }
         }
+
+        Snackbar.make(findViewById(R.id.flashcard_question_textview),
+                "Card successfully created",
+                Snackbar.LENGTH_SHORT)
+                .show();
     }
 }
