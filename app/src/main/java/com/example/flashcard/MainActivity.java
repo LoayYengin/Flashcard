@@ -165,12 +165,14 @@ public class MainActivity extends AppCompatActivity {
                 wrongAnswer1.setText(wrongAnswer1String);
                 wrongAnswer2.setText(wrongAnswer2String);
                 correctAnswer.setText(answerString);
+
+                Snackbar.make(findViewById(R.id.flashcard_question_textview),
+                        "Card successfully created",
+                        Snackbar.LENGTH_SHORT)
+                        .show();
             }
         }
 
-        Snackbar.make(findViewById(R.id.flashcard_question_textview),
-                "Card successfully created",
-                Snackbar.LENGTH_SHORT)
-                .show();
+
     }
 }

@@ -1,10 +1,5 @@
 # Lab 1
 
-## App Walk-though
-
-<img src="flashcard-lab1.gif" width=200><br>
-
-
 ## Required
 - [x] Create New Project in Android Studio
 - [x] Add a view for the front side of the flashcard to display the question
@@ -17,3 +12,7 @@
 - [x] Add selectable multiple choice answers beneath the card
     - [x] Change the background color of the multiple choice answers when clicked to indicate whether the question was answered correctly
 - [x] Further customize and style the card
+
+## App Walk-though
+
+<img src="flashcard-lab1.gif" width=200><br>
