@@ -2,7 +2,7 @@
 
 ## App Walk-though
 
-<img src="/flashcard-lab1.gif" width=200><br>
+<img src="flashcard-lab1.gif" width=200><br>
 
 
 ## Required
