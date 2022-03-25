@@ -173,7 +173,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         nextButton.setOnClickListener(view -> {
-            cardIndex++;
+            int randomIndex = getRandomNumber(0, allFlashcards.size() -1);
+
+            while (cardIndex == randomIndex) {
+                randomIndex = getRandomNumber(0, allFlashcards.size() -1);
+            }
+
+            cardIndex = randomIndex;
+
             Log.i("yengin", "cardIndex: ");
             System.out.println("cardIndex: " + cardIndex);
 
