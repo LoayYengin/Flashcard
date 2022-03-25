@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(allFlashcards.size());
             flashcardQuestion.setText(allFlashcards.get(0).getQuestion());
             flashcardAnswer.setText(allFlashcards.get(0).getAnswer());
+            wrongAnswer1.setText(allFlashcards.get(0).getWrongAnswer1());
+            wrongAnswer2.setText(allFlashcards.get(0).getWrongAnswer2());
+            correctAnswer.setText(allFlashcards.get(0).getAnswer());
         } else {
             flashcardDatabase.initFirstCard();
         }
@@ -173,10 +176,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         nextButton.setOnClickListener(view -> {
-            int randomIndex = getRandomNumber(0, allFlashcards.size() -1);
+            int randomIndex = getRandomNumber(0, allFlashcards.size() - 1);
 
-            while (cardIndex == randomIndex) {
-                randomIndex = getRandomNumber(0, allFlashcards.size() -1);
+            while (allFlashcards.size() != 1 && cardIndex == randomIndex) {
+                randomIndex = getRandomNumber(0, allFlashcards.size() - 1);
             }
 
             cardIndex = randomIndex;
@@ -190,12 +193,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             try {
-                Flashcard currCard = allFlashcards.get(cardIndex);
-                flashcardQuestion.setText(currCard.getQuestion());
-                flashcardAnswer.setText(currCard.getAnswer());
-                wrongAnswer1.setText(currCard.getWrongAnswer1());
-                wrongAnswer2.setText(currCard.getWrongAnswer2());
-                correctAnswer.setText(currCard.getAnswer());
+                updateCurrCardDisplay(cardIndex);
 
                 // if answer side was shown, make invisible and display question
                 showQuestion();
@@ -214,9 +212,13 @@ public class MainActivity extends AppCompatActivity {
             if (allFlashcards.size() > 0) {
                 // update card being displayed to
                 try {
-                    Flashcard currCard = allFlashcards.get(cardIndex);
-                    flashcardQuestion.setText(currCard.getQuestion());
-                    flashcardAnswer.setText(currCard.getAnswer());
+//                    Flashcard currCard = allFlashcards.get(cardIndex);
+//                    flashcardQuestion.setText(currCard.getQuestion());
+//                    flashcardAnswer.setText(currCard.getAnswer());
+//                    wrongAnswer1.setText(currCard.getWrongAnswer1());
+//                    wrongAnswer2.setText(currCard.getWrongAnswer2());
+//                    correctAnswer.setText(currCard.getAnswer());
+                    updateCurrCardDisplay(cardIndex);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Accessed an index out of bounds of allFlashcards");
                 }
@@ -295,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         flashcardAnswer.setVisibility(View.INVISIBLE);
     }
 
-    private void resetMultipleChoice (){
+    private void resetMultipleChoice() {
         wrongAnswer1.setBackgroundColor(getResources().getColor(R.color.gray_800, null));
         wrongAnswer1.setTextColor(getResources().getColor(R.color.gray_200));
 
@@ -305,6 +307,16 @@ public class MainActivity extends AppCompatActivity {
         correctAnswer.setBackgroundColor(getResources().getColor(R.color.gray_800, null));
         correctAnswer.setTextColor(getResources().getColor(R.color.gray_200));
     }
+
+    private void updateCurrCardDisplay(int currCardIndex) {
+        Flashcard currCard = allFlashcards.get(currCardIndex);
+        flashcardQuestion.setText(currCard.getQuestion());
+        flashcardAnswer.setText(currCard.getAnswer());
+        wrongAnswer1.setText(currCard.getWrongAnswer1());
+        wrongAnswer2.setText(currCard.getWrongAnswer2());
+        correctAnswer.setText(currCard.getAnswer());
+    }
+
     private int getRandomNumber(int min, int max) {
         Random rand = new Random();
         return rand.nextInt((max - min) + 1) + min;

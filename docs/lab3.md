@@ -12,4 +12,4 @@
 
 ## App Walk-though
 
-<img src="flashcard-lab2.gif" width=200><br>
+<img src="flashcard-lab3.gif" width=200><br>
