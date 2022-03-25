@@ -50,15 +50,14 @@ public class AddCardActivity extends AppCompatActivity {
                 String wrongAnswer1 = ((EditText) findViewById(R.id.enter_wrong_answer1_editText)).getText().toString();
                 String wrongAnswer2 = ((EditText) findViewById(R.id.enter_wrong_answer2_editText)).getText().toString();
 
-                data.putExtra(QUESTION_KEY, inputQuestion); // puts a string into Intent, with the key "QUESTION_KEY"
-                data.putExtra(ANSWER_KEY, inputAnswer);
-                data.putExtra(WRONG_ANSWER1_KEY, wrongAnswer1);
-                data.putExtra(WRONG_ANSWER2_KEY, wrongAnswer2);
-                setResult(RESULT_OK, data); // set result code and bundle data for response
-
                 if (inputQuestion.equals("") || inputAnswer.equals("")) {
                     Toast.makeText(AddCardActivity.this, "Must enter both Question and Answer", Toast.LENGTH_SHORT).show();
                 } else {
+                    data.putExtra(QUESTION_KEY, inputQuestion); // puts a string into Intent, with the key "QUESTION_KEY"
+                    data.putExtra(ANSWER_KEY, inputAnswer);
+                    data.putExtra(WRONG_ANSWER1_KEY, wrongAnswer1);
+                    data.putExtra(WRONG_ANSWER2_KEY, wrongAnswer2);
+                    setResult(RESULT_OK, data); // set result code and bundle data for response
                     finish(); // closes this activity and pass data to the original activity that launched this activity
                 }
 
