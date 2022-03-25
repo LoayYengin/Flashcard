@@ -16,7 +16,6 @@ public class AddCardActivity extends AppCompatActivity {
     public static final String ANSWER_KEY = "answer_key";
     public static final String WRONG_ANSWER1_KEY = "wrong_answer1_key";
     public static final String WRONG_ANSWER2_KEY = "wrong_answer2_key";
-//    public static final String CORRECT_ANSWER_KEY = "correct_answer_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

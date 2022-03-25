@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     List<Flashcard> allFlashcards;
     int cardIndex = 0;
     Flashcard cardToEdit;
-    boolean isShowingAnswers = false;
+    boolean isShowingAnswers = true;
 
     TextView flashcardQuestion;
     TextView flashcardAnswer;
@@ -161,8 +161,6 @@ public class MainActivity extends AppCompatActivity {
                 // multiple choice answer texts
                 String wrongChoice1 = wrongAnswer1.getText().toString();
                 String wrongChoice2 = wrongAnswer2.getText().toString();
-                String correctChoice = correctAnswer.getText().toString();
-
 
                 intent.putExtra(AddCardActivity.QUESTION_KEY, currQuestion); // puts a string into Intent, with the key "QUESTION_KEY"
                 intent.putExtra(AddCardActivity.ANSWER_KEY, currAnswer);
@@ -188,9 +186,13 @@ public class MainActivity extends AppCompatActivity {
                 Flashcard currCard = allFlashcards.get(cardIndex);
                 flashcardQuestion.setText(currCard.getQuestion());
                 flashcardAnswer.setText(currCard.getAnswer());
+                wrongAnswer1.setText(currCard.getWrongAnswer1());
+                wrongAnswer2.setText(currCard.getWrongAnswer2());
+                correctAnswer.setText(currCard.getAnswer());
 
                 // if answer side was shown, make invisible and display question
                 showQuestion();
+                resetMultipleChoice();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Accessed an index out of bounds of allFlashcards");
             }
@@ -286,6 +288,16 @@ public class MainActivity extends AppCompatActivity {
         flashcardAnswer.setVisibility(View.INVISIBLE);
     }
 
+    private void resetMultipleChoice (){
+        wrongAnswer1.setBackgroundColor(getResources().getColor(R.color.gray_800, null));
+        wrongAnswer1.setTextColor(getResources().getColor(R.color.gray_200));
+
+        wrongAnswer2.setBackgroundColor(getResources().getColor(R.color.gray_800, null));
+        wrongAnswer2.setTextColor(getResources().getColor(R.color.gray_200));
+
+        correctAnswer.setBackgroundColor(getResources().getColor(R.color.gray_800, null));
+        correctAnswer.setTextColor(getResources().getColor(R.color.gray_200));
+    }
     private int getRandomNumber(int min, int max) {
         Random rand = new Random();
         return rand.nextInt((max - min) + 1) + min;
