@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,8 +83,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("yengin", "onCLick method was clicked");
 //                Toast.makeText(MainActivity.this, "Display answer!", Toast.LENGTH_SHORT).show();
+//                flashcardQuestion.setVisibility(View.INVISIBLE);
+//                flashcardAnswer.setVisibility(View.VISIBLE);
+
+                // get the center for the clipping circle
+                int cx = flashcardAnswer.getWidth() / 2;
+                int cy = flashcardAnswer.getHeight() / 2;
+
+                // get the final radius for the clipping circle
+                float finalRadius = (float) Math.hypot(cx, cy);
+
+                // create the animator for this view (the start radius is zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(flashcardAnswer, cx, cy, 0f, finalRadius);
+
+                // hide the question and show the answer to prepare for playing the animation!
                 flashcardQuestion.setVisibility(View.INVISIBLE);
                 flashcardAnswer.setVisibility(View.VISIBLE);
+
+                anim.setDuration(1000);
+                anim.start();
             }
         });
         // using lambda:
@@ -142,8 +163,9 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(view -> {
             Intent toAddCard = new Intent(MainActivity.this, AddCardActivity.class);
             if (toAddCard != null) {
-//                MainActivity.this.startActivity(toAddCard);
+//                MainActivity.this.startActivity(toAddCard); // create an activity but not expecting data to be returned
                 startActivityForResult(toAddCard, 100); // create an activity with with the "Intent" of expecting data in return from AddCardActivity
+                overridePendingTransition(R.anim.right_in, R.anim.left_out); // parameter 1 is the "enter" animation for a new launched activity, parameter 2 is the "exit" animation  when leaving the current activity
             }
         });
 
@@ -176,32 +198,57 @@ public class MainActivity extends AppCompatActivity {
         });
 
         nextButton.setOnClickListener(view -> {
-            int randomIndex = getRandomNumber(0, allFlashcards.size() - 1);
+            final Animation leftOutAnim = AnimationUtils.loadAnimation(view.getContext(), R.anim.left_out);
+            final Animation rightInAnim = AnimationUtils.loadAnimation(view.getContext(), R.anim.right_in);
 
-            while (allFlashcards.size() != 1 && cardIndex == randomIndex) {
-                randomIndex = getRandomNumber(0, allFlashcards.size() - 1);
-            }
+            leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    // this method is called when the animation first starts
+                }
 
-            cardIndex = randomIndex;
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    // this method is called when the animation is finished playing
+                    flashcardQuestion.startAnimation(rightInAnim);
 
-            Log.i("yengin", "cardIndex: ");
-            System.out.println("cardIndex: " + cardIndex);
+                    // execute the logic for updating the cards/indices because we want the left out animation
+                    // to have ended before animating the right in for the next question
+                    int randomIndex = getRandomNumber(0, allFlashcards.size() - 1);
 
-            if (cardIndex >= allFlashcards.size()) {
-                Snackbar.make(view, "This was the last card! Going back to the start", Snackbar.LENGTH_SHORT).show();
-                cardIndex = 0; // reset card index
-            }
+                    while (allFlashcards.size() != 1 && cardIndex == randomIndex) {
+                        randomIndex = getRandomNumber(0, allFlashcards.size() - 1);
+                    }
 
-            try {
-                updateCurrCardDisplay(cardIndex);
+                    cardIndex = randomIndex;
 
-                // if answer side was shown, make invisible and display question
-                showQuestion();
-                resetMultipleChoice();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Accessed an index out of bounds of allFlashcards");
-            }
+                    Log.i("yengin", "cardIndex: ");
+                    System.out.println("cardIndex: " + cardIndex);
 
+                    if (cardIndex >= allFlashcards.size()) {
+                        Snackbar.make(view, "This was the last card! Going back to the start", Snackbar.LENGTH_SHORT).show();
+                        cardIndex = 0; // reset card index
+                    }
+
+                    try {
+                        updateCurrCardDisplay(cardIndex);
+
+                        // if answer side was shown, make invisible and display question
+                        showQuestion();
+                        resetMultipleChoice();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Accessed an index out of bounds of allFlashcards");
+                    }
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                    // we don't need to worry about this method
+                }
+            });
+
+            flashcardQuestion.startAnimation(leftOutAnim);
         });
 
         deleteButton.setOnClickListener(view -> {
